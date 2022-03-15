@@ -80,12 +80,12 @@ if(userId && duration && description){
       newExercise.save((err, data)=>{
         if(err) { console.error(err);
         } else {
-        res.json({
-        "userId": userId, 
-        "username": username, 
-        "date": date.toDateString(), 
-        "duration": duration, 
-        "description": description
+        res.json({     
+          "username": username,
+          "description": description,
+          "duration": parseInt(duration),
+          "date": date.toDateString(),
+          "_id": userId,
             });
         }
       });
@@ -99,8 +99,8 @@ if(userId && duration && description){
 ////////////////////////
 // app get user id logs
 app.get("/api/users/:_id/logs", (req, res)=>{
-  const userId = req.params._id, 
-  {limit} = req.query;
+  const userId = req.params._id;
+  var limit = req.query.limit;
   var from = req.query.from ? new Date(req.query.from).getTime() : new Date("1111-11-11").getTime();
   var to = req.query.to ? new Date(req.query.to).getTime() : new Date().getTime();
 
